@@ -1,0 +1,109 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "consultar_historico_paciente",
+        "description": "Consulta o histórico clínico resumido do beneficiário, incluindo alergias, doenças pré-existentes, medicamentos em uso e atendimentos recentes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "description": "Identificador único do paciente."
+            }
+          },
+          "required": ["patient_id"]
+        },
+        "mock_response": {
+          "patient_id": "CP102938",
+          "nome": "João Silva",
+          "idade": 42,
+          "alergias": [
+            "Penicilina"
+          ],
+          "condicoes_preexistentes": [
+            "Hipertensão arterial"
+          ],
+          "medicamentos_em_uso": [
+            "Losartana 50mg"
+          ],
+          "ultimos_atendimentos": [
+            {
+              "data": "2026-04-10",
+              "especialidade": "Cardiologia",
+              "resumo": "Pressão arterial controlada."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "verificar_interacoes_medicamentosas",
+        "description": "Verifica possíveis interações medicamentosas e contraindicações com base na lista de medicamentos informada.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medicamentos": {
+              "type": "array",
+              "description": "Lista de medicamentos a serem avaliados.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["medicamentos"]
+        },
+        "mock_response": {
+          "interacoes_encontradas": [
+            {
+              "medicamento_1": "Ibuprofeno",
+              "medicamento_2": "Losartana",
+              "gravidade": "moderada",
+              "descricao": "Pode reduzir o efeito anti-hipertensivo e aumentar risco renal."
+            }
+          ],
+          "status": "alerta"
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "agendar_teleconsulta",
+        "description": "Agenda uma teleconsulta para o beneficiário com base na especialidade e disponibilidade.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "description": "Identificador único do paciente."
+            },
+            "especialidade": {
+              "type": "string",
+              "description": "Especialidade médica desejada."
+            },
+            "data_preferencial": {
+              "type": "string",
+              "description": "Data preferencial para a consulta no formato YYYY-MM-DD."
+            }
+          },
+          "required": [
+            "patient_id",
+            "especialidade"
+          ]
+        },
+        "mock_response": {
+          "status": "confirmado",
+          "protocolo": "TEL20260520",
+          "medico": "Dra. Mariana Costa",
+          "especialidade": "Clínico Geral",
+          "data_agendada": "2026-05-22",
+          "horario": "14:30"
+        }
+      }
+    }
+  ]
+}
